@@ -1,0 +1,60 @@
+<div id="indice" v-cloak>
+  <div class="container pt-5 pb-5">
+    <h1 class="text-left">Actores registrados</h1>
+    <hr/>
+    <ajax-form  action="crear" 
+                :syncing.sync="syncing" 
+                :cloud-error.sync="cloudError" 
+                :form-errors.sync="formErrors" 
+                :form-data="formData" 
+                :form-rules="formRules" 
+                @submitted="submittedForm($event)"
+                class="shadow form-inline rounded" >
+      <div class="form-group">
+
+        <div class="input-group col-md p-5">
+          <input  type="text" 
+                  id="full-name" 
+                  type="text"  
+                  class="form-control"
+                  :class="[formErrors.fullName ? 'is-invalid' : '']" 
+                  v-model.trim="formData.fullName" 
+                  placeholder="Nombre completo" 
+                  autocomplete="name" 
+                  focus-firstaria-label="Nombre del actor" 
+                  aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <ajax-button type="submit" :syncing="syncing" class="btn btn-outline-secondary">Registrar</ajax-button>
+          </div>
+        </div>
+
+        <div class="invalid-feedback" v-if="formErrors.fullName">Please enter your full name.</div>
+      </div>
+      <cloud-error v-if="cloudError==='actorHaSidoIngresado'">Ya existe un actor registrado con ese nombre.</cloud-error>
+      <cloud-error v-else-if="cloudError"></cloud-error>
+    </ajax-form>
+
+    <div class="shadow bg-white rounded p-5">
+      <table class="table">
+        <thead>
+          <th>Nombre</th>
+          <th>Nombre</th>
+          <th style="width: 170px;">Acciones</th>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in items" :key="index">
+            <td>{{index + 1}}</td>
+            <td>{{item.nombre}}</td>
+            <td>
+              <button class="btn btn-danger" v-on:click="deleteActor(item.id)">
+                <i class="far fa-trash-alt"></i> Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

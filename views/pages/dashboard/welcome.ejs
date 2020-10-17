@@ -1,0 +1,15 @@
+<div id="welcome">
+  <div class="container pt-5 pb-5">
+    <h1>¡Bienvenido!</h1>
+    <hr/>
+    <p>Opciones del sistema</p>
+    <div class="buttons">
+      <a class="btn btn-info" href="/actores">Actores</a>
+      <a class="btn btn-outline-info ml-2" href="/peliculas">Películas</a>
+    </div>
+  </div>
+
+  <router-view></router-view>
+
+</div>
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
